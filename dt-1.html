@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>3D Printer Model</title>
+
+    <!-- Sketchfab 3D Model Embed Script -->
+    <script type="text/javascript" src="https://sketchfab.com/models/25accd3c8aeb47f68f49dae693f049e0/embed"></script>
+
+    <style>
+        body {
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica';
+        }
+
+        .heading {
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .sketchfab-embed-wrapper {
+            display: adaptive;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 25px);
+            width: 50%;
+            margin-top: 10px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+        }
+
+        .dataDisplay {
+            color: #ffffff;
+            text-align: left;
+            margin-top: 20px;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            width: 50%;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .dataDisplay h2 {
+            font-size: 24px;
+        }
+
+        .dataDisplay p {
+            color: #ffffff;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="heading">
+        <h1>Digital Twin of 3D Printer</h1>
+    </div>
+
+    <!-- Sketchfab 3D Model Embed -->
+    <div class="sketchfab-embed-wrapper">
+        <iframe title="01 MAIN ASM Ender 3 Pro" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/25accd3c8aeb47f68f49dae693f049e0/embed"></iframe>
+    </div>
+
+    <!-- Data Display Section -->
+    <div class="dataDisplay">
+        <!-- Data fetched and displayed using JavaScript -->
+        <script>
+            // JavaScript code to fetch the data from the server and display it on the webpage.
+            fetch('/data') // Fetch the data from the '/data' endpoint of your server
+                .then(response => response.json())
+                .then(data => {
+                    const dataDisplay = document.getElementById('dataDisplay');
+                    // Assuming the data is an array with 4 elements (A, B, C, D)
+                    dataDisplay.innerHTML = `
+                        <p>A: ${data[0]}</p>
+                        <p>B: ${data[1]}</p>
+                        <p>C: ${data[2]}</p>
+                        <p>D: ${data[3]}</p>
+                    `;
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        </script>
+    </div>
+
+    <!-- Sketchfab Viewer Initialization Script -->
+    <script type="text/javascript">
+        var iframe = document.getElementsByTagName('iframe')[0];
+        var uid = '7w7pAfrCfjovwykkEeRFLGw5SXS';
+        var client = new Sketchfab(iframe);
+        client.init(uid, {
+            success: function onSuccess(api) {
+                api.start();
+                api.addEventListener('viewerready', function() {
+                    console.log('Viewer is ready');
+                });
+            },
+            error: function onError() {
+                console.log('Viewer error');
+            }
+        });
+    </script>
+</body>
+</html>

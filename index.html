@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800&family=Open+Sans:ital,wght@0,500;1,500&family=Roboto:wght@100;400&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>3D Printer Model</title>
+
+    <!-- Sketchfab 3D Model Embed Script -->
+    <script type="text/javascript" src="https://sketchfab.com/models/25accd3c8aeb47f68f49dae693f049e0/embed"></script>
+    <style>
+  body {
+  background: #222;
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;;
+
+}
+
+.heading {
+  color: #049EF4;
+  text-align: center;
+  font-size: 30px;
+  top: 0;
+  font-family: 'Inter', sans-serif;
+
+}
+
+.sketchfab-embed-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: normal;
+  height: calc(100vh - 50px);
+  width: 50%;
+  top: 0;
+}
+
+iframe {
+  width: 80%;
+  height: 80%;
+  border: 3px solid #333333;
+  border-radius: 20px;
+}
+
+.dataDisplay {
+  color: #ffffff;
+  text-align: center;
+  margin-top: 20px;
+  position: absolute;
+  top: 50%;
+  right: 20%;
+  transform: translateY(-50%);
+  width: 30%; /* Reduced width from 50% to 40% */
+  padding: 40px;
+  box-sizing: border-box;
+  border: 3px solid #333333;
+  background: linear-gradient(180deg, #222, #212121);
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.dataDisplay h2 {
+  align-items: inherit;
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+
+.dataDisplay p {
+  color: #ffffff;
+  font-size: 18px;
+}
+.sensor-table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 500px; /* Adjust the maximum width as per your requirement */
+    margin: 20px auto;
+    background-color: #3a3b3c;
+    color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .sensor-table th,
+  .sensor-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ffffff;
+  }
+
+  .sensor-table th {
+    background-color: #4b6cb7;
+    border-right: 1px solid #ffffff;
+    border-top: 1px solid #ffffff;
+  }
+
+  .sensor-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  </style>
+    
+</head>
+
+<body>
+    <div class="heading">
+        <h1>DIGITAL TWIN OF 3D PRINTER</h1>
+    </div>
+
+    <!-- Sketchfab 3D Model Embed -->
+    <div class="sketchfab-embed-wrapper">
+        <iframe title="01 MAIN ASM Ender 3 Pro" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/25accd3c8aeb47f68f49dae693f049e0/embed"></iframe>
+    </div>
+
+    <!-- Data Display Section -->
+    <div class="dataDisplay">
+        <!-- Data fetched and displayed using JavaScript -->
+    </div>
+
+    <!-- Sketchfab Viewer Initialization Script -->
+    <script type="text/javascript">
+        var iframe = document.getElementsByTagName('iframe')[0];
+        var uid = '7w7pAfrCfjovwykkEeRFLGw5SXS';
+        var client = new Sketchfab(iframe);
+        client.init(uid, {
+            success: function onSuccess(api) {
+                api.start();
+                api.addEventListener('viewerready', function() {
+                    console.log('Viewer is ready');
+                });
+            },
+            error: function onError() {
+                console.log('Viewer error');
+            }
+        });
+    </script>
+
+    <!-- Data Display JavaScript -->
+    <script>
+      // Function to fetch the data from the server and display it on the webpage.
+      function fetchDataAndDisplay() {
+          fetch('/data') // Fetch the data from the '/data' endpoint of your server
+              .then(response => response.json())
+              .then(data => {
+                  const dataDisplay = document.querySelector('.dataDisplay'); // Use querySelector to find the element
+                  // Assuming the data is an array with 4 elements (A, B, C, D)
+                  dataDisplay.innerHTML = `
+                  <h2>REAL TIME SENSOR READINGS</h2>
+<table class="sensor-table">
+  <tr>
+    <td><b>Temp_R</b></td>
+    <td>${data[0]} ohm</td>
+  </tr>
+  <tr>
+    <td><b>Current </b></td>
+    <td>${data[1]} A</td>
+  </tr>
+  <tr>
+    <td><b>Vib 2</b></td>
+    <td>${data[2]} V</td>
+  </tr>
+  <tr>
+    <td><b>Vib E</b></td>
+    <td>${data[3]} V</td>
+  </tr>
+</table>
+
+                  `;
+              })
+              .catch(error => console.error('Error fetching data:', error));
+      }
+  
+      // Fetch and display data initially
+      fetchDataAndDisplay();
+  
+      // Fetch and display data every 4 seconds
+      const fetchInterval = 100; // 3.5 seconds
+      setInterval(fetchDataAndDisplay, fetchInterval);
+  </script>
+  
+</body>
+</html>
